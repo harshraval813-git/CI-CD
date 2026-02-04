@@ -1,0 +1,21 @@
+name: Website Health Check
+
+on: [push]  # Jab bhi code upload hoga, ye chalega
+
+jobs:
+  check-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Download
+        uses: actions/checkout@v3
+
+      - name: Node.js Install
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Tool (Lighthouse)
+        run: npm install -g @lhci/cli
+
+      - name: Run Test
+        run: lhci autorun
