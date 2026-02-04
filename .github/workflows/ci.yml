@@ -14,5 +14,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install & Run Lighthouse
-        run: npx @lhci/cli autorun --collect.staticDistDir=. --upload.target=temporary-public-storage
+      - name: Install Tool (Force)
+        run: npm install -g @lhci/cli
+
+      - name: Run Speed Test
+        run: lhci autorun --collect.staticDistDir=. --upload.target=temporary-public-storage
