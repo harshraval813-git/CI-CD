@@ -3,19 +3,18 @@ name: Website Health Monitor
 on: [push]
 
 jobs:
-  check-quality:
+  check-website:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Code
+      - name: Download Code
         uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - name: Run Lighthouse Test (Easy Mode)
+        uses: treosh/lighthouse-ci-action@v12
         with:
-          node-version: 18
-
-      - name: Install Tool (Force)
-        run: npm install -g @lhci/cli
-
-      - name: Run Speed Test
-        run: lhci autorun --collect.staticDistDir=. --upload.target=temporary-public-storage
+          # Ye folder scan karega (jahan index.html hai)
+          staticDistDir: ./
+          # Report ka link generate karega
+          temporaryPublicStorage: true
+          # Artifacts save karega
+          uploadArtifacts: true
